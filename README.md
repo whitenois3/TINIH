@@ -1,21 +1,26 @@
 <img align="right" width="150" height="150" top="100" src="./assets/readme.jpg">
 
-# femplate • [![ci](https://github.com/abigger87/femplate/actions/workflows/ci.yml/badge.svg)](https://github.com/abigger87/femplate/actions/workflows/ci.yml) ![license](https://img.shields.io/github/license/abigger87/femplate?label=license) ![solidity](https://img.shields.io/badge/solidity-^0.8.15-lightgrey)
+# TINIH • [![ci](https://github.com/abigger87/femplate/actions/workflows/ci.yml/badge.svg)](https://github.com/abigger87/femplate/actions/workflows/ci.yml) ![license](https://img.shields.io/github/license/abigger87/femplate?label=license) ![solidity](https://img.shields.io/badge/solidity-^0.8.15-lightgrey)
 
-A **Clean**, **Robust** Template for Foundry Projects.
+There Is No Invisible Hand.
 
-## Getting Started
+## Why ?
 
-Click [`use this template`](https://github.com/abigger87/femplate/generate) to create a new repository with this repo as the initial state.
+In any [video-]game the developer is a, sometimes, merciful god for he is able to create an abundance of items [fungible or not] that could bring havoc to games that have a strong player-economy [WoW, CS, ...]. It is even more true in games [onchain or not] based on blockchain, involving ERC20s and ERC721s.
 
-Or, if your repo already exists, run:
-```sh
-forge init --template https://github.com/abigger87/femplate
-git submodule update --init --recursive
-forge install
-```
+Such games, in particular on-chain, need tools to be more transparent towards its users.
 
-Run `./utils/rename.sh` to rename all instances of `femplate` with the name of your project/repository.
+## What ?
+
+TINIH is a controller that computes the probability of, in a gaming context, an item to spawn. The probability is based on two quantities ; a target and a value. Such quantities can be either prices or supplies (for consumables for instance).
+
+## How ?
+
+The function used is the CDF of the [Weibull distribution](https://en.wikipedia.org/wiki/Weibull_distribution). With the right parameters, it has the shape of a nice sigmoid function which is close to what we intuitively desire ; high probability if the actual price is too high w.r.t the ratio (makes it more abundant) or low probability if it's too low (makes it more scarce).
+
+<p align="center">
+<img width="540" height="540" src="./assets/Weibull_CDF.svg">
+</p>
 
 ## Blueprint
 
@@ -23,81 +28,11 @@ Run `./utils/rename.sh` to rename all instances of `femplate` with the name of y
 lib
 ├─ forge-std — https://github.com/foundry-rs/forge-std
 ├─ solmate — https://github.com/Rari-Capital/solmate
-scripts
-├─ Deploy.s.sol — Simple Deployment Script
 src
-├─ Greeter — A Minimal Greeter Contract
+├─ TINIH — Probability controller
 test
-└─ Greeter.t — Exhaustive Tests
+└─ TINIH.t — tests
 ```
-
-
-## Development
-
-**Setup**
-```bash
-forge install
-```
-
-**Building**
-```bash
-forge build
-```
-
-**Testing**
-```bash
-forge test
-```
-
-**Deployment & Verification**
-
-Inside the [`utils/`](./utils/) directory are a few preconfigured scripts that can be used to deploy and verify contracts.
-
-Scripts take inputs from the cli, using silent mode to hide any sensitive information.
-
-_NOTE: These scripts are required to be _executable_ meaning they must be made executable by running `chmod +x ./utils/*`._
-
-_NOTE: these scripts will prompt you for the contract name and deployed addresses (when verifying). Also, they use the `-i` flag on `forge` to ask for your private key for deployment. This uses silent mode which keeps your private key from being printed to the console (and visible in logs)._
-
-
-### First time with Forge/Foundry?
-
-See the official Foundry installation [instructions](https://github.com/foundry-rs/foundry/blob/master/README.md#installation).
-
-Then, install the [foundry](https://github.com/foundry-rs/foundry) toolchain installer (`foundryup`) with:
-```bash
-curl -L https://foundry.paradigm.xyz | bash
-```
-
-Now that you've installed the `foundryup` binary,
-anytime you need to get the latest `forge` or `cast` binaries,
-you can run `foundryup`.
-
-So, simply execute:
-```bash
-foundryup
-```
-
-🎉 Foundry is installed! 🎉
-
-
-### Writing Tests with Foundry
-
-With [Foundry](https://github.com/foundry-rs/foundry), all tests are written in Solidity! 🥳
-
-Create a test file for your contract in the `test/` directory.
-
-For example, [`src/Greeter.sol`](./src/Greeter.sol) has its test file defined in [`./test/Greeter.t.sol`](./test/Greeter.t.sol).
-
-To learn more about writing tests in Solidity for Foundry, reference Rari Capital's [solmate](https://github.com/Rari-Capital/solmate/tree/main/src/test) repository created by [@transmissions11](https://twitter.com/transmissions11).
-
-
-### Configure Foundry
-
-Using [foundry.toml](./foundry.toml), Foundry is easily configurable.
-
-For a full list of configuration options, see the Foundry [configuration documentation](https://github.com/foundry-rs/foundry/blob/master/config/README.md#all-options).
-
 
 ## License
 
